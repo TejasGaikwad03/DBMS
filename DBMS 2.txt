@@ -203,16 +203,11 @@ Query OK, 1 row affected (0.104 sec)
 
 mysql> insert into course (eid, eno, courseid, year) VALUES (302, 102, 202, '2005-09-19');
 ERROR 1054 (42S22): Unknown column 'eid' in 'field list'
-mysql> insert into course (eid, eno, courseid, year) VALUES (308, 108, 202, '2005-09-19');
-ERROR 1054 (42S22): Unknown column 'eid' in 'field list'
-mysql> insert into course (eid, eno, courseid, year) VALUES (108, 308, 202, '2005-09-19');
-ERROR 1054 (42S22): Unknown column 'eid' in 'field list'
+
 mysql> INSERT INTO enrollments (eid, eno, courseid, year)
     -> VALUES (108, 308, 202, '2005-09-19');
 Query OK, 1 row affected (0.115 sec)
 
-mysql> delete from env where student_name='Tejas';
-ERROR 1395 (HY000): Can not delete from join view 'student.env'
 mysql> delete from course where course_name='civil';
 Query OK, 1 row affected (0.112 sec)
 
@@ -224,5 +219,6 @@ mysql> select * from env;
 | Pranav       | IT          | 2005-03-31 |
 +--------------+-------------+------------+
 2 rows in set (0.013 sec)
+
 
 mysql>
