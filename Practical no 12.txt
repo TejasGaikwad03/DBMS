@@ -1,0 +1,50 @@
+Practical no 12
+
+pip install pymongo
+
+
+Requirement already satisfied: pymongo in c:\users\tejas gaikwad\appdata\local\programs\python\python312\lib\site-packages (4.15.3)Note: you may need to restart the kernel to use updated packages.
+
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in c:\users\tejas gaikwad\appdata\local\programs\python\python312\lib\site-packages (from pymongo) (2.8.0)
+
+[notice] A new release of pip is available: 24.0 -> 25.3
+[notice] To update, run: python.exe -m pip install --upgrade pip
+
+Program:
+
+from pymongo import MongoClient
+
+
+Conn = MongoClient("mongodb://localhost:27017")
+db_entry = input("Enter database name: ")
+db = Conn[db_entry]
+coll_input = input("Enter collection name: ")
+coll = db[coll_input]
+rec = {}
+roll = int(input("Enter the rollno: "))
+nm = input("Enter the name: ")
+cl = input("Enter class: ")
+rec = {'rollno': roll, 'name': nm, 'class': cl}
+coll.insert_one(rec)
+print("Data is inserted")
+
+vs code output:
+Data is inserted
+
+mongodb output:
+
+_id
+68fe4981b13decc16c06a72a
+
+ObjectId
+rollno
+13166
+
+Int32
+name
+Tejas
+
+String
+class
+TE
+
