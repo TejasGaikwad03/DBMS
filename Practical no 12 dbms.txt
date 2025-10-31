@@ -1,0 +1,108 @@
+Practical no 12
+
+
+from pymongo import MongoClient
+Conn = MongoClient("mongodb://localhost:27017")
+db_entry = input("Enter database name: ")
+db = Conn[db_entry]
+coll_input = input("Enter collection name: ")
+coll = db[coll_input]
+while True:
+    print("\n------ MongoDB CRUD Operations (Switch Case) ------")
+    print("1. Insert Record")
+    print("2. Display Records")
+    print("3. Update Record")
+    print("4. Delete Record")
+    print("5. Exit")
+
+    ch = int(input("Enter your choice (1-5): "))
+
+    match ch:
+
+        case 1:
+            roll = int(input("Enter Roll No: "))
+            nm = input("Enter Name: ")
+            cl = input("Enter Class: ")
+            rec = {'rollno': roll, 'name': nm, 'class': cl}
+            coll.insert_one(rec)
+            print(" Data Inserted Successfully!")
+
+        case 2:
+            print("\n------ Displaying All Records ------")
+            data = coll.find()
+            for record in data:
+                print(record)
+
+        case 3:
+            roll = int(input("Enter Roll No to update: "))
+            new_name = input("Enter new Name: ")
+            new_class = input("Enter new Class: ")
+            result = coll.update_one(
+                {"rollno": roll},
+                {"$set": {"name": new_name, "class": new_class}}
+            )
+            if result.modified_count > 0:
+                print(" Record Updated Successfully!")
+            else:
+                print(" Record Not Found!")
+
+        case 4:
+            roll = int(input("Enter Roll No to delete: "))
+            result = coll.delete_one({"rollno": roll})
+            if result.deleted_count > 0:
+                print(" Record Deleted Successfully!")
+            else:
+                print(" Record Not Found!")
+
+        case 5:
+            print(" Exiting Program...")
+            break
+
+        # DEFAULT
+        case _:
+            print(" Invalid Choice! Please select between 1-5.")
+
+
+Enter database name: college
+Enter collection name: student
+
+1. Insert Record
+2. Display Records
+3. Update Record
+4. Delete Record
+5. Exit
+Enter your choice (1-5): 1
+Enter Roll No: 101
+Enter Name: Tejas
+Enter Class: TE
+
+Data Inserted Successfully!
+
+
+1. Insert Record
+2. Display Records
+3. Update Record
+4. Delete Record
+5. Exit
+Enter your choice (1-5): 2
+
+------ Displaying All Records ------
+
+{'_id': ObjectId('671f9a8e91b3a0123c0a7f9b'), 'rollno': 101, 'name': 'Tejas', 'class': 'TE'}
+
+Enter your choice (1-5): 3
+Enter Roll No to update: 101
+Enter new Name: Pranav
+Enter new Class: BE
+
+ Record Updated Successfully!
+
+Enter your choice (1-5): 4
+Enter Roll No to delete: 101
+
+ Record Deleted Successfully!
+
+------ MongoDB CRUD Operations (Switch Case) ------
+Enter your choice (1-5): 5
+
+ Exiting Program...
